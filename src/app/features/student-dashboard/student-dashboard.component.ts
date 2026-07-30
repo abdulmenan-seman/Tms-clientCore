@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CourseCardComponent } from '../../ui/course-card/course-card.component';
 import { Course } from '../../models/course.model';
@@ -9,6 +9,7 @@ import { CourseService } from '../../services/course.service';
   standalone: true,
   imports: [CourseCardComponent],
   templateUrl: './student-dashboard.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-dashboard.component.scss',
 })
 export class StudentDashboardComponent {
@@ -18,7 +19,7 @@ export class StudentDashboardComponent {
   readonly earnedCredits = signal<number>(45);
 
   readonly graduationStatus = computed<string>(() =>
-    this.earnedCredits() >= 120 ? 'Eligible for Graduation' : 'In Progress'
+    this.earnedCredits() >= 120 ? 'Eligible for Graduation' : 'In Progress',
   );
 
   readonly selectedCourse = signal<Course | null>(null);

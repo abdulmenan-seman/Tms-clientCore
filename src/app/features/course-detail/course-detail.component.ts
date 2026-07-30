@@ -1,4 +1,4 @@
-import { Component, input, effect } from '@angular/core';
+import { Component, input, effect, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink], // Required for [routerLink] template navigation[cite: 4]
   templateUrl: './course-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './course-detail.component.scss',
 })
 export class CourseDetailComponent {

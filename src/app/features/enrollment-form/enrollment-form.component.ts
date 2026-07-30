@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -12,6 +12,7 @@ import {
   standalone: true,
   imports: [ReactiveFormsModule], // Required for formGroup and formControlName directives
   templateUrl: './enrollment-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './enrollment-form.component.scss',
 })
 export class EnrollmentFormComponent {
@@ -23,10 +24,7 @@ export class EnrollmentFormComponent {
 
   // Define form using nonNullable builder to prevent null states on control resets
   readonly form = this.fb.nonNullable.group({
-    studentId: [
-      'STU-1001',
-      [Validators.required, Validators.pattern('^STU-[0-9]{4}$')],
-    ],
+    studentId: ['STU-1001', [Validators.required, Validators.pattern('^STU-[0-9]{4}$')]],
     courseId: ['', Validators.required],
     term: ['Fall 2026', Validators.required],
     notes: [''],
@@ -46,7 +44,7 @@ export class EnrollmentFormComponent {
       this.fb.control('', {
         nonNullable: true,
         validators: Validators.required,
-      })
+      }),
     );
   }
 
