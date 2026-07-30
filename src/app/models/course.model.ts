@@ -23,6 +23,27 @@ export interface PagedResponse<T> {
 }
 
 /**
+ * Backend v2 envelope used by GET /api/v2/courses.
+ */
+export interface CourseApiResponse<T> {
+  items: T[];
+  meta: {
+    totalCount: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+  };
+  links: {
+    self: string;
+    next: string | null;
+    prev: string | null;
+    enroll: string;
+  };
+}
+
+/**
  * HATEOAS Link contract for GET /api/v2/courses/{id}.
  */
 export interface CourseLink {

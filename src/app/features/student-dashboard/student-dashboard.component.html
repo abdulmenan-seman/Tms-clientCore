@@ -10,26 +10,30 @@
 
 <h2>Course Catalog</h2>
 
-<!-- Primary Conditional Check -->
-@if (availableCourses().length === 0) {
-  <div class="empty-state">
-    <p>No courses are available this term. Check back during registration.</p>
+<!-- Consume loading signal[cite: 5] -->
+@if (coursesResource.isLoading()) {
+  <div class="spinner">Fetching courses from the server...</div>
+} 
+<!-- Consume error state signal[cite: 5] -->
+@else if (coursesResource.error()) {
+  <div class="error">
+    Could not load courses. Make sure your .NET API is running and CORS is configured.
   </div>
-} @else {
+} 
+<!-- Render live data using value()[cite: 5] -->
+@else {
   <div class="grid">
-    <!-- Array Loop tracking course.id mandatory key -->
-    @for (course of availableCourses(); track course.id) {
+    @for (course of coursesResource.value()!; track course.id) {
       <tms-course-card
         [course]="course"
         (enrollClicked)="handleEnroll($event)"
       />
     } @empty {
-      <p>No results match your search.</p>
+      <p>No courses are available this term.</p>
     }
   </div>
 }
 
-<!-- On-Page Selection Confirmation proving parent state change -->
 @if (selectedCourse(); as picked) {
   <p class="selection-hint" role="status">
     Last enrollment request: <strong>{{ picked.title }}</strong> ({{ picked.code }})

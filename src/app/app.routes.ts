@@ -9,10 +9,17 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'courses/:id', // Param variable :id binds to input('id')[cite: 4]
+    path: 'courses/:id', 
     loadComponent: () =>
       import('./features/course-detail/course-detail.component').then(
         (m) => m.CourseDetailComponent
+      ),
+  },
+  {
+    path: 'enroll', // Pathway to dynamic form view
+    loadComponent: () =>
+      import('./features/enrollment-form/enrollment-form.component').then(
+        (m) => m.EnrollmentFormComponent
       ),
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
