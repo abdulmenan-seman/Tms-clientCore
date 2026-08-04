@@ -1,6 +1,6 @@
 import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { provideHttpClient, withXhr } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -8,10 +8,10 @@ export const appConfig: ApplicationConfig = {
     // Enables fine-grained, signal-based change detection without Zone.js overhead
     provideZonelessChangeDetection(),
 
-    // Connects URL pathways and maps route route params directly into component inputs
+    // Connects URL pathways and maps route params directly into component inputs
     provideRouter(routes, withComponentInputBinding()),
 
     // Configures global HTTP client infrastructure for API communication
-    provideHttpClient(withXhr()),
+    provideHttpClient(), // ✅ no withXhr
   ],
 };
