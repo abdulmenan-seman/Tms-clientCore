@@ -11,7 +11,7 @@ import { EnrollmentStore } from '../../store/enrollment.store';
   standalone: true,
   imports: [CourseCardComponent, EnrollmentListComponent],
   templateUrl: './student-dashboard.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './student-dashboard.component.scss',
 })
 export class StudentDashboardComponent implements OnInit {

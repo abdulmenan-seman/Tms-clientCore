@@ -1,0 +1,19 @@
+<!-- Immediate Critical UI: Renders instantly on any network speed -->
+<div class="dashboard-header">
+  <h1>Instructor Command Center</h1>
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <span class="kpi-value">{{ store.entities().length }}</span>
+      <span class="kpi-label">Total Enrollments</span>
+    </div>
+    <div class="kpi-card pending">
+      <span class="kpi-value">{{ store.pendingCount() }}</span>
+      <span class="kpi-label">Pending Approval</span>
+    </div>
+  </div>
+</div>
+
+<!-- Analytics UI -->
+<div class="chart-section">
+  <tms-analytics-chart [data]="store.entities()" />
+</div>

@@ -5,27 +5,25 @@
     Enrollment submitted. Check the console for the payload.
   </div>
 } @else {
-  <!-- Bind formGroup model and attach submit event handler -->
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <label for="studentId">Student ID</label>
+    <label for="studentRegistrationNumber">Student Registration Number</label>
     <input
-      id="studentId"
-      formControlName="studentId"
-      placeholder="e.g. STU-1234"
+      id="studentRegistrationNumber"
+      formControlName="studentRegistrationNumber"
+      placeholder="e.g. TMS-2026-0001"
     />
-    <!-- Display errors only after interaction (.touched) -->
-    @if (form.controls.studentId.touched && form.controls.studentId.invalid) {
-      <span class="error">Enter a valid Student ID (format: STU-0000)</span>
+    @if (form.controls.studentRegistrationNumber.touched && form.controls.studentRegistrationNumber.invalid) {
+      <span class="error">Student registration number is required</span>
     }
 
-    <label for="courseId">Course ID</label>
+    <label for="courseCode">Course Code</label>
     <input
-      id="courseId"
-      formControlName="courseId"
-      placeholder="e.g. 1 (TMS course primary key)"
+      id="courseCode"
+      formControlName="courseCode"
+      placeholder="e.g. CS-101"
     />
-    @if (form.controls.courseId.touched && form.controls.courseId.invalid) {
-      <span class="error">Course ID is required</span>
+    @if (form.controls.courseCode.touched && form.controls.courseCode.invalid) {
+      <span class="error">Course code is required</span>
     }
 
     <label for="term">Term</label>
@@ -51,6 +49,10 @@
     <button type="button" (click)="addBackup()">Add Backup Course</button>
 
     <hr />
+
+    @if (errorMessage()) {
+      <span class="error">{{ errorMessage() }}</span>
+    }
 
     <button type="submit" [disabled]="form.invalid">Confirm Enrollment</button>
   </form>

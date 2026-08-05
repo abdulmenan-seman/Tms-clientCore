@@ -1,30 +1,42 @@
 <div class="dashboard">
-  <h1>Welcome, {{ studentName() }}</h1>
-  <p>Credits Earned: {{ earnedCredits() }}</p>
-  <p>Graduation Status: {{ graduationStatus() }}</p>
+  <h1>Welcome back, {{ studentName() }}</h1>
+
+  <!-- Analytical KPI Grid -->
+  <div class="kpi-row">
+    <div class="kpi-card credits">
+      <span class="kpi-value">{{ earnedCredits() }}</span>
+      <span class="kpi-label">Credits Earned</span>
+    </div>
+
+    <div class="kpi-card status">
+      <span class="kpi-value">{{ graduationStatus() }}</span>
+      <span class="kpi-label">Graduation Status</span>
+    </div>
+
+    <div class="kpi-card pending">
+      <span class="kpi-value">{{ pendingEnrollments().length }}</span>
+      <span class="kpi-label">Pending Enrollments</span>
+    </div>
+  </div>
 
   <button (click)="registerForClass()">
-    Register for a Class (+3 credits)
+    + Register for a Class (+3 credits)
   </button>
 </div>
-<!-- count pending enrollments -->
-<p class="pending-enrollments">
-  You have {{ pendingEnrollments().length }} pending enrollment(s).
-</p>
 
 <h2>Course Catalog</h2>
 
-<!-- Consume loading signal[cite: 5] -->
+<!-- Consume loading signal -->
 @if (coursesResource.isLoading()) {
-  <div class="spinner">Fetching courses from the server...</div>
+  <div class="spinner">Fetching available courses from server...</div>
 } 
-<!-- Consume error state signal[cite: 5] -->
+<!-- Consume error state signal -->
 @else if (coursesResource.error()) {
   <div class="error">
-    Could not load courses. Make sure your .NET API is running and CORS is configured.
+    Could not load courses. Make sure your .NET API is running and CORS is configured properly.
   </div>
 } 
-<!-- Render live data using value()[cite: 5] -->
+<!-- Render live data using value() -->
 @else {
   <div class="grid">
     @for (course of coursesResource.value()!; track course.id) {
@@ -33,13 +45,13 @@
         (enrollClicked)="handleEnroll($event)"
       />
     } @empty {
-      <p>No courses are available this term.</p>
+      <p>No courses are available for this term.</p>
     }
   </div>
 }
 
 @if (selectedCourse(); as picked) {
-  <p class="selection-hint" role="status">
-    Last enrollment request: <strong>{{ picked.title }}</strong> ({{ picked.code }})
-  </p>
+  <div class="selection-hint" role="status">
+    <span>Last enrollment request: <strong>{{ picked.title }}</strong> ({{ picked.code }})</span>
+  </div>
 }

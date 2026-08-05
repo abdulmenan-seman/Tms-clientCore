@@ -1,23 +1,41 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, viewChild, effect, inject } from '@angular/core';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 import { EnrollmentStore } from '../../store/enrollment.store';
+import { Enrollment } from '../../models/enrollment.model';
 
 @Component({
   selector: 'tms-enrollment-list',
   standalone: true,
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule],
   templateUrl: './enrollment-list.component.html',
-  styleUrl: './enrollment-list.component.scss',
+  styleUrl: './enrollment-list.component.scss'
 })
-export class EnrollmentListComponent implements OnInit {
-  // Inject centralized singleton store instance[cite: 5]
+export class EnrollmentListComponent {
   readonly store = inject(EnrollmentStore);
+  readonly displayedColumns = ['studentName', 'courseName', 'status', 'actions'];
 
-  ngOnInit(): void {
-    // Trigger store entity hydration lifecycle[cite: 5]
+  // Material Data Source wrapper
+  readonly dataSource = new MatTableDataSource<Enrollment>();
+
+  // Angular 22 Signal-based View Queries
+  readonly paginator = viewChild.required(MatPaginator);
+  readonly sort = viewChild.required(MatSort);
+
+  constructor() {
+    // Effect 1: Push store entity updates into MatTableDataSource
+    effect(() => {
+      this.dataSource.data = this.store.entities();
+    });
+
+    // Effect 2: Attach paginator and sort once resolved by template queries
+    effect(() => {
+      this.dataSource.paginator = this.paginator();
+      this.dataSource.sort = this.sort();
+    });
+
+    // Load entities on creation
     this.store.loadEnrollments();
-  }
-
-  onApprove(id: string): void {
-    // Dispatch mutation action to store[cite: 5]
-    this.store.approveEnrollment(id);
   }
 }

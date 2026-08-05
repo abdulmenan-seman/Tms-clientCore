@@ -1,0 +1,328 @@
+// ==========================================
+// Host Configuration & Base Styles
+// ==========================================
+:host {
+  display: block;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #0f172a;
+}
+
+// ==========================================
+// Dashboard Header & KPI Analytics Cards
+// ==========================================
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+}
+
+// Analytics KPI Grid - Matching Instructor Dashboard Styling
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.kpi-card {
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.06);
+  }
+
+  .kpi-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #1e293b;
+  }
+
+  .kpi-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    margin-top: 0.5rem;
+  }
+
+  // Visual Variants
+  &.credits {
+    border-left: 4px solid #4f46e5;
+    .kpi-value { color: #4f46e5; }
+  }
+
+  &.status {
+    border-left: 4px solid #10b981;
+    .kpi-value { 
+      font-size: 1.25rem; 
+      margin-top: 0.35rem;
+      color: #059669; 
+    }
+  }
+
+  &.pending {
+    border-left: 4px solid #f59e0b;
+    .kpi-value { color: #d97706; }
+  }
+}
+
+// Header Action Button
+.dashboard button {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Inline status alert for pending enrollments
+.pending-enrollments {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #b45309;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+// Section Header
+h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+// ==========================================
+// Course Grid & Professional Card Styling
+// ==========================================
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  // Targeting the child component wrapper element
+  tms-course-card {
+    display: block;
+    height: 100%;
+  }
+}
+
+// Modern Card Styling (If scoped at dashboard level or inside tms-course-card)
+.course-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -4px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.875rem;
+
+    .course-code {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6366f1;
+      background-color: #eeeffe;
+      padding: 0.25rem 0.625rem;
+      border-radius: 6px;
+    }
+
+    .credits-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #475569;
+      background-color: #f1f5f9;
+      padding: 0.25rem 0.625rem;
+      border-radius: 9999px;
+    }
+  }
+
+  .card-body {
+    flex-grow: 1;
+    margin-bottom: 1.25rem;
+
+    .course-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.35;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    .course-description {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.5;
+      margin: 0;
+      display: -webkit-box;
+      line-clamp: 3;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  .card-footer {
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+
+    .btn-enroll {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: #ffffff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+        box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+
+        .arrow-icon {
+          transform: translateX(3px);
+        }
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+// ==========================================
+// Feedback & Loading States
+// ==========================================
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #64748b;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.error {
+  padding: 1rem 1.25rem;
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+// ==========================================
+// Sticky Selection Toast/Notification
+// ==========================================
+.selection-hint {
+  position: sticky;
+  bottom: 1.5rem;
+  margin-top: 2rem;
+  padding: 0.875rem 1.25rem;
+  background: #0f172a;
+  color: #f8fafc;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideUp 0.25s ease-out forwards;
+
+  strong {
+    color: #818cf8;
+    font-weight: 600;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

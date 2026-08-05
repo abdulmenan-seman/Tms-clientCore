@@ -30,5 +30,13 @@ export const routes: Routes = [
         (m) => m.EnrollmentListComponent
       ),
   },
+  // Pathway to instructor dashboard view
+  {
+    path: 'instructor-dashboard',
+    loadComponent: () =>
+      import('./features/instructor-dashboard/instructor-dashboard').then(
+        (m) => m.InstructorDashboardComponent
+      ),
+  },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
